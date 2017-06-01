@@ -43,6 +43,7 @@ gem "nested_form_fields"
 # gem 'capistrano-rails', group: :development
 gem "select2-rails"
 gem 'bootstrap-datepicker-rails'
+gem 'ckeditor'
 group :development, :test do
   gem 'rspec-rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
