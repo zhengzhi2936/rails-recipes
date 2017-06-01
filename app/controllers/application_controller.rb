@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
   before_action :set_locale
   before_action :set_time_zone
-  protect_from_forgery with: :exception
+
 
   def set_locale
     if params[:locale] && I18n.available_locales.include?( params[:locale].to_sym)

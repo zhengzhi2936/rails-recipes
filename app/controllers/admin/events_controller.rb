@@ -44,7 +44,6 @@ class Admin::EventsController < AdminController
 
     redirect_to admin_events_path
   end
-
   protected
 
   def event_params
