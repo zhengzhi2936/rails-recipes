@@ -11,7 +11,7 @@ class Registration < ApplicationRecord
   attr_accessor :current_step
   validates_presence_of :name, :email, :cellphone, :if => :should_validate_basic_data?
   validates_presence_of :name, :email, :cellphone, :bio, :if => :should_validate_all_data?
-
+  has_paper_trail
   before_validation :generate_uuid, :on => :create
 
   def to_param
