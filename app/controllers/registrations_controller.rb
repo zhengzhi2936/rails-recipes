@@ -10,9 +10,10 @@ class RegistrationsController < ApplicationController
     @registration.status = "pending"
     @registration.user = current_user
     @registration.current_step = 1
-    if @registration.save!
+    if @registration.save
       redirect_to step2_event_registration_path(@event, @registration)
     else
+      flash.now[:alert] = @registration.errors[:base].join("、")
       render "new"
     end
   end
@@ -67,7 +68,7 @@ class RegistrationsController < ApplicationController
   protected
 
   def registration_params
-    params.require(:registration).permit(:ticket_id,  :name, :email, :cellphone, :website, :bio)
+    params.require(:registration).permit(:ticket_id, :name, :email, :cellphone, :website, :bio)
   end
 
   def find_event
