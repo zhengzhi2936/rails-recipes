@@ -1,6 +1,11 @@
 class Event < ApplicationRecord
-
+ mount_uploader :logo, EventLogoUploader
+ mount_uploaders :images, EventImageUploader
+ serialize :images, JSON
  validates_presence_of :name, :friendly_id
+
+ has_many :attachments, :class_name => "EventAttachment", :dependent => :destroy
+ accepts_nested_attributes_for :attachments, :allow_destroy => true, :reject_if => :all_blank
 
  validates_uniqueness_of :friendly_id
  validates_format_of :friendly_id, :with => /\A[a-z0-9\-]+\z/
@@ -13,7 +18,7 @@ class Event < ApplicationRecord
  def to_param
    self.friendly_id
  end
- has_many :tickets, :dependent => :destroy, inverse_of: :event
+ has_many :tickets, :dependent => :destroy
  accepts_nested_attributes_for :tickets, :allow_destroy => true, :reject_if => :all_blank
  belongs_to :category, :optional => true
  STATUS = ["draft", "public", "private"]
