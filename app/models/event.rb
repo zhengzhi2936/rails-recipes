@@ -3,6 +3,7 @@ class Event < ApplicationRecord
  mount_uploaders :images, EventImageUploader
  serialize :images, JSON
  validates_presence_of :name, :friendly_id
+ has_many :registration_imports, :dependent => :destroy
 
  has_many :attachments, :class_name => "EventAttachment", :dependent => :destroy
  accepts_nested_attributes_for :attachments, :allow_destroy => true, :reject_if => :all_blank
