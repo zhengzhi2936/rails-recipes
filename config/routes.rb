@@ -14,7 +14,10 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  require 'sidekiq/web'
+  authenticate :user, lambda { |u| u.is_admin? } do
+   mount Sidekiq::Web => '/sidekiq'
+  end
   namespace :admin do
     root "events#index"
     resources :versions do
